@@ -16,7 +16,8 @@ composer install neezaan\aescryptor
 
 ## Usage
 
-This package can generate a secure key and initialisation vector for you. You will need to store the key securely, but this package handles storing the IV itself with the encrypted string, so you don't have to store it elsewhere like you might a password salt. Arguably this is less secure, but it makes the implementation simpler.
+This package can generate a secure key and initialisation vector for you. You will need to store the key securely, but this package handles storing the IV itself with the encrypted string, so you don't have to store it elsewhere.
+Arguably this is less secure, but it makes the implementation simpler.
 
 ```
 <?php 
@@ -43,34 +44,17 @@ $decrypted = $aes->decrypt($encrypted);
 
 // Note that $decrypted === $secret
 
-// Use the below if you will encrypt with your PHP application and decrypt via bash.
-// The following method just returns the pure encrypted string. If you use this output, you will have to store the IV as you would a password hash somewhere to later decrypt.
-$encryptedString = $aes->encryptWithoutIv($secret);
-
-// Then decrypt this the following method and explicitly pass in the iv
-$decryptedString = $aes->decryptWithoutIv($encryptedString, $iv);
-
 ```
 ## Purpose
 
 This library is built primarily for interoperability between applications and pipelines.
 
-You might use this library to write encrypted content to an s3 bucket or a git repository, then use the equivalent `openssl` commands on bash or an equivalent shell in your pipeline to decrypt the content and do something with it.
+### Interoperability via Bash
 
-### Enrypt via Bash
+Results produced by this library are not interoperable with the `openssl` cli on Linux.
 
-First write your encrypted / decrypted content to a file called `input.txt` using the `encryptWithoutIv` or `decryptWithoutIv` methods from this library, then run the below.
+To get the same results with PHP, see https://stackoverflow.com/questions/71198954/openssl-aes-256-cbc-encryption-from-command-prompt-and-decryption-in-php-and-vi.
 
-`output.txt` will contain the result of the encryption/decryption operation in either case.
-
-```
-openssl enc -aes-256-cbc -in input.txt -out output.txt -K <key> -iv <iv>
-```
-
-### Decrypt via Bash
-```
-openssl enc -d -aes-256-cbc -in input.txt -out output.txt -K <key> -iv <iv>
-```
 
 ## Credits
 
@@ -79,3 +63,6 @@ openssl enc -d -aes-256-cbc -in input.txt -out output.txt -K <key> -iv <iv>
 ## License
 
 MIT
+
+
+echo -n 'meezaan' | openssl aes-256-cbc -e -in text.txt -K 358a0c71af7a1e32945310b72e61be8847cfbf6b87046e1eb3f43fa232ca378b -iv c9b442d676205e1e4a2cd19556fce276p | xxd -p

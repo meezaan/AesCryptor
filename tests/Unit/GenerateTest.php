@@ -10,14 +10,14 @@ class GenerateTest extends TestCase
     public function testKeyGeneration()
     {
         $key = Generate::key();
-        $this->assertEquals(32, strlen($key));
+        $this->assertEquals(64, strlen($key));
     }
     
 public function testIvGeneration()
     {
         $iv = Generate::iv();
         $this->assertIsString($iv);
-        $this->assertEquals(16, strlen($iv));
+        $this->assertEquals(32, strlen($iv));
     }
 }
 

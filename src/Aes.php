@@ -7,12 +7,12 @@ class Aes {
     public const AES_256_CBC = "aes-256-cbc";
     
     /**
-     * A 256-bit encryption key. Store this in a secure vault somewhere.
+     * A 256-bit encryption key in hex. Store this in a secure vault somewhere.
      */
     private string $key;
     
     /**
-     * Initialisation Vector
+     * Initialisation Vector in hex
      */
     private string $iv;
     
@@ -23,8 +23,8 @@ class Aes {
     
     public function __construct(string $key, string $iv, int $options = null)
     {
-        $this->key = $key;
-        $this->iv = $iv;
+        $this->key = $this->convertToBin($key);
+        $this->iv = $this->convertToBin($iv);
         if ($options === null) {
             $this->options = 0;
         }
@@ -37,7 +37,7 @@ class Aes {
     {
         $encData = openssl_encrypt($data, self::AES_256_CBC, $this->key, $this->options, $this->iv);
         
-        return $encData . ':' . base64_encode($this->iv);
+        return $encData . ':::' . base64_encode($this->iv);
     }
     
     /**
@@ -45,7 +45,7 @@ class Aes {
      */
     public function decrypt(string $data): string
     {
-        $parts = explode(':', $data);
+        $parts = explode(':::', $data);
         
         return openssl_decrypt($parts[0], self::AES_256_CBC, $this->key, $this->options, base64_decode($parts[1]));
     }
@@ -60,14 +60,18 @@ class Aes {
         return $this->iv;
     }
 
-    public function encryptWithoutIv(string $data): string
+    /**
+     * Converts hex strings to binary data
+     */
+    private function convertToBin(string $data): string
     {
-        return openssl_encrypt($data, self::AES_256_CBC, $this->key, $this->options, $this->iv);
-    }
+        if (ctype_xdigit($data)) {
+            // This means we have $data is hex
+            return hex2bin($data);
+        }
 
-    public function decryptWithoutIv(string $data, string $iv): string
-    {
-        return openssl_decrypt($data, self::AES_256_CBC, $this->key, $this->options, $this->iv);
+        // Otherwise we already have binary
+        return $data;
     }
 
     
