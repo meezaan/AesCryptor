@@ -63,6 +63,3 @@ To get the same results with PHP, see https://stackoverflow.com/questions/711989
 ## License
 
 MIT
-
-
-echo -n 'meezaan' | openssl aes-256-cbc -e -in text.txt -K 358a0c71af7a1e32945310b72e61be8847cfbf6b87046e1eb3f43fa232ca378b -iv c9b442d676205e1e4a2cd19556fce276p | xxd -p
