@@ -50,6 +50,26 @@ class Aes {
         return openssl_decrypt($parts[0], self::AES_256_CBC, $this->key, $this->options, base64_decode($parts[1]));
     }
     
+    public function getKey(): string
+    {
+        return $this->key;
+    }
+
+    public function getIv(): string
+    {
+        return $this->iv;
+    }
+
+    public function encryptWithoutIv(string $data): string
+    {
+        return openssl_encrypt($data, self::AES_256_CBC, $this->key, $this->options, $this->iv);
+    }
+
+    public function decryptWithoutIv(string $data, string $iv): string
+    {
+        return openssl_decrypt($data, self::AES_256_CBC, $this->key, $this->options, $this->iv);
+    }
+
     
     
 }

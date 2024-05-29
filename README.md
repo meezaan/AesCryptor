@@ -43,6 +43,33 @@ $decrypted = $aes->decrypt($encrypted);
 
 // Note that $decrypted === $secret
 
+// Use the below if you will encrypt with your PHP application and decrypt via bash.
+// The following method just returns the pure encrypted string. If you use this output, you will have to store the IV as you would a password hash somewhere to later decrypt.
+$encryptedString = $aes->encryptWithoutIv($secret);
+
+// Then decrypt this the following method and explicitly pass in the iv
+$decryptedString = $aes->decryptWithoutIv($encryptedString, $iv);
+
+```
+## Purpose
+
+This library is built primarily for interoperability between applications and pipelines.
+
+You might use this library to write encrypted content to an s3 bucket or a git repository, then use the equivalent `openssl` commands on bash or an equivalent shell in your pipeline to decrypt the content and do something with it.
+
+### Enrypt via Bash
+
+First write your encrypted / decrypted content to a file called `input.txt`, then run the below.
+
+`output.txt` will contain the result of the encryption/decryption operation in either case.
+
+```
+openssl enc -aes-256-cbc -in input.txt -out output.txt -K <key> -iv <iv>
+```
+
+### Decrypt via Bash
+```
+openssl enc -d -aes-256-cbc -in input.txt -out output.txt -K <key> -iv <iv>
 ```
 
 ## Credits

@@ -24,4 +24,18 @@ class AesTest extends TestCase
         $this->assertEquals($this->secret, $decrypted);
     }
     
+public function testEncryptDecryptWithoutIv()
+    {
+        $key = Generate::key();
+        $iv = Generate::iv();
+
+        $aes = new Aes($key, $iv);
+
+        $encrypted = $aes->encryptWithoutIv($this->secret);
+        $this->assertNotEquals($this->secret, $encrypted);
+
+        $decrypted = $aes->decryptWithoutIv($encrypted, $iv);
+        $this->assertEquals($this->secret, $decrypted);
+    }
+
 }
