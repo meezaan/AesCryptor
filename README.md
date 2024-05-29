@@ -27,14 +27,11 @@ use Meezaan\Aescryptor\Aes;
 // Generate a 256-bit key. Store this somewhere in a secure vault. You don't need this step as you can generate your own key elsewhere too.
 $key = Generate::key();
 
-// Generate the required initialisation vector for a 256-bit key. You don't need this step as you can generate your own IV, but it should be AES 256 compliant (meaning it should be 16 characters long).
-$iv = Generate::iv();
-
 // Our secret
 $secret = 'A_Secret';
 
 // Instantiate the Aes class.
-$aes = new Aes($key, $iv);
+$aes = new Aes($key);
 
 // Encrypt your string
 $encrypted = $aes->encrypt($secret);
