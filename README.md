@@ -11,7 +11,7 @@ This package is based on https://gist.github.com/turret-io/957e82d44fd6f4493533.
 The package can be installed via composer:
 
 ```
-composer install neezaan\aescryptor
+composer install meezaan\aescryptor
 ```
 
 ## Usage
