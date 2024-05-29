@@ -47,7 +47,7 @@ $decrypted = $aes->decrypt($encrypted);
 // The following method just returns the pure encrypted string. If you use this output, you will have to store the IV as you would a password hash somewhere to later decrypt.
 $encryptedString = $aes->encryptWithoutIv($secret);
 
-// Then decrypt this the following method and explicitly pass in the iv
+// Then decrypt this with the following method and explicitly pass in the iv
 $decryptedString = $aes->decryptWithoutIv($encryptedString, $iv);
 
 ```
