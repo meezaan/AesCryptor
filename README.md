@@ -59,7 +59,7 @@ You might use this library to write encrypted content to an s3 bucket or a git r
 
 ### Enrypt via Bash
 
-First write your encrypted / decrypted content to a file called `input.txt`, then run the below.
+First write your encrypted / decrypted content to a file called `input.txt` using the `encryptWithoutIv` or `decryptWithoutIv` methods from this library, then run the below.
 
 `output.txt` will contain the result of the encryption/decryption operation in either case.
 
