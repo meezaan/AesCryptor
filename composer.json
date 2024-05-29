@@ -1,0 +1,32 @@
+{
+    "name": "meezaan/aescryptor",
+    "type": "library",
+    "description": "A library to encrypt / decrypt strings using the AES algorithm",
+    "keywords": [
+        "encryption",
+        "decryption",
+        "security"
+    ],
+    "homepage": "https://meezan.net",
+    "license": "MIT",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": ">=8.2",
+        "ext-openssl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Meezaan\\Aescryptor\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Meezaan\\Aescryptor\\Tests\\": "tests/"
+        }
+    }
+}
