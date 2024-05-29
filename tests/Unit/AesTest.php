@@ -13,9 +13,8 @@ class AesTest extends TestCase
     public function testEncryptDecrypt()
     {
         $key = Generate::key();
-        $iv = Generate::iv();
         
-        $aes = new Aes($key, $iv);
+        $aes = new Aes($key);
         
         $encrypted = $aes->encrypt($this->secret);
         $this->assertNotEquals($this->secret, $encrypted);
