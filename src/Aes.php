@@ -21,13 +21,11 @@ class Aes {
      */
     private int $options;
     
-    public function __construct(string $key, int $options = null)
+    public function __construct(string $key, int $options = 0)
     {
         $this->key = $this->convertToBin($key);
         $this->iv = $this->convertToBin(Generate::iv());
-        if ($options === null) {
-            $this->options = 0;
-        }
+        $this->options = 0;
     }
     
     /**
