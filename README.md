@@ -1,3 +1,5 @@
+# Moved to https://1x.ax/meezaan/aescryptor/
+
 # AES Cryptor
 
 A basic PHP package for encrypting and decrypting strings using an AES 256-bit key.
